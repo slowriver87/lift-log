@@ -499,7 +499,7 @@ function viewSession(){
   const ss=activeSession(),wk=ss.wk,W=S.weeks[wk];
   let h='<section class="sess-head"><div class="row between"><div class="grow"><div class="small muted">'+fmtDate(ss.date)+'</div><div class="wk-big">'+DAYS[ss.day]+'</div></div><button class="btn primary" data-act="finish">Finish</button></div>';
   h+='<div class="row"><span class="tag" style="color:'+WCOL[wk]+'">Week '+(wk+1)+' · '+esc(W.label)+' · '+weekText(wk)+'</span>';
-  h+='<label class="chk small"><input type="checkbox" id="offday" data-act="offday"'+(ss.off?" checked":"")+'> Off day (keep out of PRs and targets)</label></div>';
+  h+='<label class="chk small"><input type="checkbox" id="offday" data-act="offday"'+(ss.off?" checked":"")+'> Off-form day (keep out of PRs and targets)</label></div>';
   if(wk===3)h+='<p class="small muted">Light week. Each exercise suggests a lighter weight that still gives you real reps.</p>';
   const total=ss.sets.length; if(!total&&!Object.values(ss.lineup).some(a=>a.length)){
     const prev=S.sessions.filter(s=>s.day===ss.day&&s.id!==ss.id&&s.sets.length).sort((a,b)=>a.date<b.date?1:-1)[0];
@@ -574,7 +574,7 @@ function viewHistory(){
   if(!ss.length)h+='<p class="muted">No sessions yet. Start one from Today.</p>';
   ss.slice(0,40).forEach(s=>{
     const byEx={};s.sets.forEach(st=>{(byEx[st.ex]=byEx[st.ex]||[]).push(st);});
-    h+='<details class="card"><summary class="row between" style="cursor:pointer"><span><b>'+DAYS[s.day]+'</b> · '+fmtDate(s.date)+'</span><span class="row"><span class="tag" style="color:'+WCOL[s.wk]+'">W'+(s.wk+1)+'</span>'+(s.off?'<span class="tag mut">Off day</span>':'')+'<span class="small muted num">'+s.sets.length+' sets</span></span></summary><div class="list">';
+    h+='<details class="card"><summary class="row between" style="cursor:pointer"><span><b>'+DAYS[s.day]+'</b> · '+fmtDate(s.date)+'</span><span class="row"><span class="tag" style="color:'+WCOL[s.wk]+'">W'+(s.wk+1)+'</span>'+(s.off?'<span class="tag mut">Off-form day</span>':'')+'<span class="small muted num">'+s.sets.length+' sets</span></span></summary><div class="list">';
     Object.keys(byEx).forEach(id=>{const ex=exById(id);if(!ex)return;
       h+='<div class="small"><b>'+esc(ex.name)+'</b><br><span class="num muted">'+byEx[id].map(st=>ex.kind==="counter"?"1 set":wLabel(ex,st.w)+"×"+st.reps+(st.rir!=null?"@"+st.rir:"")+(st.pr?" PR":"")+(st.sloppy?" (sloppy)":"")).join(" · ")+'</span></div>';});
     h+='</div></details>';
